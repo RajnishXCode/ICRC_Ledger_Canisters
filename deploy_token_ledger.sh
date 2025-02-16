@@ -24,57 +24,32 @@ dfx identity use minter
 
 # Step 7: Deploy the ICP Ledger Canister.
 # Replace `ryjl3-tyaaa-aaaaa-aaaba-cai` with your desired canister ID.
-dfx deploy --specified-id ryjl3-tyaaa-aaaaa-aaaba-cai icp_ledger_canister --argument "
-  (variant {
-    Init = record {
-      minting_account = \"$MINTER_ACCOUNT_ID\"; 
-      initial_values = vec {
-        record {
-          \"$DEFAULT_ACCOUNT_ID\"; 
-          record {
-            e8s = 10_000_000_000 : nat64; 
-          };
-        };
-      };
-      send_whitelist = vec {}; 
-      transfer_fee = opt record {
-        e8s = 10_000 : nat64; 
-      };
-      token_symbol = opt \"MY-ICP\";
-      token_name = opt \"Local ICP\"; 
-      feature_flags = opt record { icrc2 = true };
-    }
-  })
-"
+# dfx deploy --specified-id ryjl3-tyaaa-aaaaa-aaaba-cai icp_ledger_canister --argument "
+#   (variant {
+#     Init = record {
+#       minting_account = \"$MINTER_ACCOUNT_ID\"; 
+#       initial_values = vec {
+#         record {
+#           \"$DEFAULT_ACCOUNT_ID\"; 
+#           record {
+#             e8s = 10_000_000_000 : nat64; 
+#           };
+#         };
+#       };
+#       send_whitelist = vec {}; 
+#       transfer_fee = opt record {
+#         e8s = 10_000 : nat64; 
+#       };
+#       token_symbol = opt \"MY-ICP\";
+#       token_name = opt \"Local ICP\"; 
+#       feature_flags = opt record { icrc2 = true };
+#     }
+#   })
+# "
 
-# Step 8: Deploy the ckUSDC  Ledger Canister. (e6s)
+# Step 8: Deploy the ckUSDC  Ledger Canister. (e6s) but used e8s in the code.
 # Replace `xevnm-gaaaa-aaaar-qafnq-cai` with your desired canister ID.
 dfx deploy --specified-id xevnm-gaaaa-aaaar-qafnq-cai ckUSDC_ledger_canister --argument "
-  (variant {
-    Init = record {
-      minting_account = \"$MINTER_ACCOUNT_ID\";
-      initial_values = vec {
-        record {
-          \"$DEFAULT_ACCOUNT_ID\";
-          record {
-            e6s = 10_000_000_000 : nat64;
-          };
-        };
-      };
-      send_whitelist = vec {};
-      transfer_fee = opt record {
-        e6s = 1_000 : nat64;
-      };
-      token_symbol = opt \"ckUSDC\";
-      token_name = opt \"Local ckUSDC\";
-      feature_flags = opt record { icrc2 = true };
-    }
-  })
-"
-
-# Step 9: Deploy the LIFT Ledger Canister. (Custom Token)
-# Replace `ss2fx-dyaaa-aaaar-qacoq-cai` with your desired canister ID.
-dfx deploy --specified-id ss2fx-dyaaa-aaaar-qacoq-cai LIFT_ledger_canister --argument "
   (variant {
     Init = record {
       minting_account = \"$MINTER_ACCOUNT_ID\";
@@ -88,14 +63,39 @@ dfx deploy --specified-id ss2fx-dyaaa-aaaar-qacoq-cai LIFT_ledger_canister --arg
       };
       send_whitelist = vec {};
       transfer_fee = opt record {
-        e8s = 10_000 : nat64;
+        e8s = 1_000 : nat64;
       };
-      token_symbol = opt \"LIFT\";
-      token_name = opt \"LIFT Token\";
+      token_symbol = opt \"ckUSDC\";
+      token_name = opt \"Local ckUSDC\";
       feature_flags = opt record { icrc2 = true };
     }
   })
 "
+
+# Step 9: Deploy the LIFT Ledger Canister. (Custom Token)
+# Replace `ss2fx-dyaaa-aaaar-qacoq-cai` with your desired canister ID.
+# dfx deploy --specified-id ss2fx-dyaaa-aaaar-qacoq-cai LIFT_ledger_canister --argument "
+#   (variant {
+#     Init = record {
+#       minting_account = \"$MINTER_ACCOUNT_ID\";
+#       initial_values = vec {
+#         record {
+#           \"$DEFAULT_ACCOUNT_ID\";
+#           record {
+#             e8s = 10_000_000_000 : nat64;
+#           };
+#         };
+#       };
+#       send_whitelist = vec {};
+#       transfer_fee = opt record {
+#         e8s = 10_000 : nat64;
+#       };
+#       token_symbol = opt \"LIFT\";
+#       token_name = opt \"LIFT Token\";
+#       feature_flags = opt record { icrc2 = true };
+#     }
+#   })
+# "
 
 # Step 11: Switch back to the "office" identity.
 dfx identity use office
